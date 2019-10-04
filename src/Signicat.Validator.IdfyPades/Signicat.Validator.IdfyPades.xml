@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Signicat.Validator.IdfyPades</name>
+    </assembly>
+    <members>
+        <member name="M:Signicat.Validator.IdfyPades.Controllers.ValidationController.Post(System.Collections.Generic.List{Microsoft.AspNetCore.Http.IFormFile})">
+            <summary>
+            Validate Pades file
+            </summary>
+            <remarks>
+            Validate a PAdES file created by Signicat, returns certificate, attachments and other metadata.
+            </remarks>
+            <param name="files">Http file upload</param>
+            <returns></returns>
+        </member>
+        <member name="M:Signicat.Validator.IdfyPades.Infrastructure.ServiceCollectionExtensions.AddSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds Swagger to specified IServiceCollection.
+            </summary>
+        </member>
+        <member name="M:Signicat.Validator.IdfyPades.Infrastructure.Swagger.OperationGroupAttribute.#ctor(System.String)">
+            <summary>
+            Group controller actions under a custom tag when generating Swagger docs
+            </summary>
+            <param name="name"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="P:Signicat.Validator.IdfyPades.Infrastructure.Swagger.OperationGroupAttribute.Name">
+            <summary>
+            Operation group name
+            </summary>
+        </member>
+        <member name="M:Signicat.Validator.IdfyPades.Infrastructure.Swagger.SwaggerHelpers.CustomOrDefaultOperationGroup(Microsoft.AspNetCore.Mvc.ApiExplorer.ApiDescription)">
+            <summary>
+            Custom strategy for assigning a default "tag" to Swagger actions.
+            Will use the custom value provided by <see cref="T:Signicat.Validator.IdfyPades.Infrastructure.Swagger.OperationGroupAttribute"/> if present, otherwise uses the controller name.
+            </summary>
+            <param name="apiDesc"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
