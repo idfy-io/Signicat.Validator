@@ -17,6 +17,7 @@ namespace Tests
         }
 
         [Test]
+        [Ignore("Requires local file")]
         public async Task Test1()
         {
             string path = @"C:\Users\rune.synnevaag\Downloads\Visena-Merge-Fields-Reference-07.12.2015_pades.pdf";
