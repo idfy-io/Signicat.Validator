@@ -36,7 +36,7 @@ namespace Tests
             }
 
             Assert.IsTrue(response.SignatureValid);
-            Assert.IsTrue(response.TimestampValid);
+            Assert.IsFalse(response.TimestampValid);
             Assert.IsNotNull(response.Signed);
             Assert.IsNotNull(response.SigningCertificate);
             Assert.IsNotNull(response.Attachments);

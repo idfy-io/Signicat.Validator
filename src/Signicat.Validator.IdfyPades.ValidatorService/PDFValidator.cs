@@ -34,15 +34,16 @@ namespace Signicat.Validator.IdfyPades.ValidatorService
                     {
                         X509Certificate certificate =
                             signatureUtil.ReadSignatureData(signatureFieldName).GetSigningCertificate();
-                        
-                        response.SignatureValid = signatureUtil.ReadSignatureData(signatureFieldName)
-                            .VerifySignatureIntegrityAndAuthenticity();
-                        response.TimestampValid =
-                            signatureUtil.ReadSignatureData(signatureFieldName).VerifyTimestampImprint();
 
-                       
+                        var signatureData = signatureUtil.ReadSignatureData(signatureFieldName);
+
+
+                        response.SignatureValid = signatureData.VerifySignatureIntegrityAndAuthenticity();
+                        response.TimestampValid = signatureData.VerifyTimestampImprint();
+                        response.Signed = signatureData.GetSignDate();
+
                         response.SigningCertificate = new X509Certificate2(certificate.CertificateStructure.GetEncoded("base64"));
-                        response.Signed = signatureUtil.ReadSignatureData(signatureFieldName).GetSignDate();                        
+                        
                     }
                     else
                     {
