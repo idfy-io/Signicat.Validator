@@ -6,11 +6,13 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>G:\git\Signicat.Validator.IdfyPades\Signicat.Validator.IdfyPades\Signicat.Validator.IdfyPades.xml</DocumentationFile>
+    <DocumentationFile>bin\Signicat.Validator.IdfyPades.xml</DocumentationFile>
+    <OutputPath>bin\</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>G:\git\Signicat.Validator.IdfyPades\Signicat.Validator.IdfyPades\Signicat.Validator.IdfyPades.xml</DocumentationFile>
+    <DocumentationFile>bin\Signicat.Validator.IdfyPades.xml</DocumentationFile>
+    <OutputPath>bin\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
