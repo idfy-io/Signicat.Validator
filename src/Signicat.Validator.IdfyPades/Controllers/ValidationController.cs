@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
+using Serilog;
 using Signicat.Validator.IdfyPades.Infrastructure;
 using Signicat.Validator.IdfyPades.Infrastructure.Swagger.Examples;
 using Signicat.Validator.IdfyPades.Models;
@@ -16,6 +17,7 @@ namespace Signicat.Validator.IdfyPades.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    
     public class ValidationController : ControllerBase
     {
         private readonly PDFValidator PdfValidator;
@@ -39,22 +41,32 @@ namespace Signicat.Validator.IdfyPades.Controllers
         [Swashbuckle.AspNetCore.Examples.SwaggerResponseExample(200,typeof(ValidationResponseExample))]
         public async Task<IActionResult> Post(List<IFormFile> files)
         {
-            if ( Request?.Form?.Files!=null && Request.Form.Files.Any() && Request.Form?.Files[0]?.Length > 0)
+            try
             {
-                var file = Request.Form.Files[0];
-                using (var ms = new MemoryStream())
+                if (Request?.Form?.Files != null && Request.Form.Files.Any() && Request.Form?.Files[0]?.Length > 0)
                 {
-                    await file.CopyToAsync(ms);
+                    var file = Request.Form.Files[0];
+                    using (var ms = new MemoryStream())
+                    {
+                        await file.CopyToAsync(ms);
 
-                    var response = await PdfValidator.Validate(ms.ToArray());
+                        var response = await PdfValidator.Validate(ms.ToArray());
 
-                    return Ok(response.Map());
-                }                
+                        return Ok(response.Map());
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
-            else
+            catch (Exception e)
             {
-                return BadRequest();
+                Log.Logger.Error(e,"Error validating PDF");
+                return StatusCode(500);
+                
             }
+         
 
         }
 

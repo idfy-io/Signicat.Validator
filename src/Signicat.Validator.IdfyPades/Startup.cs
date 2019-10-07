@@ -28,7 +28,11 @@ namespace Signicat.Validator.IdfyPades
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
+            services.Configure<AppSettings>(Configuration);
+            AppSettings settings = Configuration.Get<AppSettings>();
+
+            services.AddSeqLogger(settings.Seq, "web");
             services.AddMvcCore(mvc =>
             {
                 mvc.InputFormatters.Clear();
@@ -36,6 +40,8 @@ namespace Signicat.Validator.IdfyPades
                     
 
             });
+            services.AddCorsPolicies();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
             services.AddSwagger();
             

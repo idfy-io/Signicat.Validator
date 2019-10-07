@@ -1,6 +1,9 @@
 ﻿using System;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
+using Serilog.Core;
+using Serilog.Events;
 using Signicat.Validator.IdfyPades.Infrastructure.Swagger;
 using Swashbuckle.AspNetCore.Examples;
 using Swashbuckle.AspNetCore.Swagger;
@@ -42,6 +45,7 @@ namespace Signicat.Validator.IdfyPades.Infrastructure
                     {
                         name = name.Substring(0, name.Length - "DTO".Length);
                     }
+
                     return name;
                 });
 
@@ -60,5 +64,61 @@ namespace Signicat.Validator.IdfyPades.Infrastructure
             return services;
         }
 
+
+
+
+
+        /// <summary>
+        /// Adds Serilog and the Seq sink to the specified IServiceCollection.
+        /// </summary>
+        public static IServiceCollection AddSeqLogger(this IServiceCollection services, SeqSettings settings,
+            string serviceType)
+        {
+            var levelSwitch = new LoggingLevelSwitch();
+
+            var logConfig = new LoggerConfiguration()
+                .MinimumLevel.ControlledBy(levelSwitch)
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                .Enrich.FromLogContext()
+                .Enrich.WithProperty("ServiceType", serviceType)
+                .Enrich.WithProperty("MachineName", Environment.MachineName)
+                .WriteTo.Seq(settings.Url, apiKey: settings.ApiKey, controlLevelSwitch: levelSwitch);
+
+            if (Environment.UserInteractive)
+            {
+                logConfig.WriteTo.ColoredConsole();
+            }
+
+            Log.Logger = logConfig.CreateLogger();
+
+            services.AddSingleton(Log.Logger);
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds CORS policies to the specified IServiceCollection.
+        /// </summary>
+        /// <param name="services"></param>        
+        /// <returns></returns>
+        public static IServiceCollection AddCorsPolicies(this IServiceCollection services)
+        {
+            services.AddCors(opts =>
+            {
+            
+
+                opts.AddPolicy("External", builder =>
+                {
+                    builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
+
+            return services;
+        }
+
     }
+
 }
