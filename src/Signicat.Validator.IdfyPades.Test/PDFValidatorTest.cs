@@ -16,11 +16,10 @@ namespace Tests
             Validator=new PDFValidator();
         }
 
-        [Test]
-        [Ignore("Requires local file")]
-        public async Task Test1()
+        [Test]        
+        public async Task Test_valid_PDF_is_signed_and_valid()
         {
-            string path = @"C:\Users\rune.synnevaag\Downloads\Visena-Merge-Fields-Reference-07.12.2015_pades.pdf";
+            string path = @"test-valid-pades.pdf";
             var response = await Validator.Validate(System.IO.File.ReadAllBytes(path));
 
             Assert.IsNotNull(response);
@@ -35,6 +34,14 @@ namespace Tests
                 Console.WriteLine(responseAttachment.Name);
                 File.WriteAllBytes(responseAttachment.Name,responseAttachment.Data);
             }
+
+            Assert.IsTrue(response.SignatureValid);
+            Assert.IsTrue(response.TimestampValid);
+            Assert.IsNotNull(response.Signed);
+            Assert.IsNotNull(response.SigningCertificate);
+            Assert.IsNotNull(response.Attachments);
+            
+            Assert.AreEqual(2,response.NumberOfAttachments);
 
             Assert.Pass();
         }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Net.Http.Headers;
+using Signicat.Validator.IdfyPades.Infrastructure;
 using Signicat.Validator.IdfyPades.Infrastructure.Swagger.Examples;
 using Signicat.Validator.IdfyPades.Models;
 using Signicat.Validator.IdfyPades.ValidatorService;
@@ -38,7 +39,7 @@ namespace Signicat.Validator.IdfyPades.Controllers
         [Swashbuckle.AspNetCore.Examples.SwaggerResponseExample(200,typeof(ValidationResponseExample))]
         public async Task<IActionResult> Post(List<IFormFile> files)
         {
-            if ( Request.Form?.Files!=null && Request.Form.Files.Any() && Request.Form?.Files[0]?.Length > 0)
+            if ( Request?.Form?.Files!=null && Request.Form.Files.Any() && Request.Form?.Files[0]?.Length > 0)
             {
                 var file = Request.Form.Files[0];
                 using (var ms = new MemoryStream())
@@ -47,7 +48,7 @@ namespace Signicat.Validator.IdfyPades.Controllers
 
                     var response = await PdfValidator.Validate(ms.ToArray());
 
-                    return Ok(response);
+                    return Ok(response.Map());
                 }                
             }
             else

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using Signicat.Validator.IdfyPades.Models;
+using Signicat.Validator.IdfyPades.ValidatorService;
 using Swashbuckle.AspNetCore.Examples;
 
 namespace Signicat.Validator.IdfyPades.Infrastructure.Swagger.Examples
@@ -11,7 +11,7 @@ namespace Signicat.Validator.IdfyPades.Infrastructure.Swagger.Examples
     {
         public object GetExamples()
         {
-            return new ValidationResponse()
+            return new ValidatorService.PDFValidationResponse()
             {
                 NumberOfAttachments = 2,
                 NumberOfPages = 3,
@@ -35,7 +35,7 @@ namespace Signicat.Validator.IdfyPades.Infrastructure.Swagger.Examples
                             "77u/PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjxTaWduZWREb2N1b....."),
                     },
                 }
-            };
+            }.Map();
         }
     }
 }

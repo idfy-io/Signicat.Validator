@@ -25,7 +25,7 @@ namespace Signicat.Validator.IdfyPades.Infrastructure
                     Title = "Signicat Validator",
                     Version = "v1",
                     Description =
-                        "This is a Admin API for the Signicat signi APP platorm",
+                        "This is a Validator for Signed PDF's",
                     Contact = new Contact()
                     {
                         Name = "Signicat AS",
