@@ -93,6 +93,8 @@ namespace Signicat.Validator.IdfyPades.Infrastructure
 
             services.AddSingleton(Log.Logger);
 
+            Log.Logger.Information("PDF validator started");
+
             return services;
         }
 
