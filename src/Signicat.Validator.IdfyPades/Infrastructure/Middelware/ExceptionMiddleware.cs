@@ -41,8 +41,7 @@ namespace Signicat.Validator.IdfyPades.Infrastructure.Middelware
                 new PropertyEnricher("RequestId", requestId),
                 new PropertyEnricher("RequestIpAddress", httpContext.Request.IpAddress()),
             };
-
-
+            
 
             httpContext.Response.OnStarting(state =>
             {

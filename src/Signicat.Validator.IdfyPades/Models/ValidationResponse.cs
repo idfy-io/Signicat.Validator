@@ -10,23 +10,57 @@ namespace Signicat.Validator.IdfyPades.Models
 {
     public class ValidationResponse
     {
+        /// <summary>
+        /// The date and time the PDF is signed if signed
+        /// </summary>
         public DateTime? Signed { get; set; }
 
+        /// <summary>
+        /// The public part of the certificate that signed the document
+        /// </summary>
         public CertificateDTO SigningCertificate { get; set; }
 
+        /// <summary>
+        /// Number of attachments in the PAdES
+        /// </summary>
         public int NumberOfAttachments { get; set; }
 
+        /// <summary>
+        /// List of attachments filename and content
+        /// </summary>
         public List<PDFAttachment> Attachments { get; set; }
+
+        /// <summary>
+        /// Is the digital signature valid
+        /// </summary>
         public bool SignatureValid { get; set; }
+
+        /// <summary>
+        /// Is there a timestamp and is it valid
+        /// </summary>
         public bool TimestampValid { get; set; }
+
+        /// <summary>
+        /// Number of pages in the PDF
+        /// </summary>
         public int NumberOfPages { get; set; }
+
+        /// <summary>
+        /// Error message 
+        /// </summary>
         public string Message { get; set; }
     }
 
     public class PDFAttachment
     {
+        /// <summary>
+        /// Attachment file name
+        /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// Attachment file content as base64
+        /// </summary>
         public byte[] Data { get; set; }
     }
 
