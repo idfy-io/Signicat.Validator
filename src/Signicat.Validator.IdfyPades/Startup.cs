@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
 using Signicat.Validator.IdfyPades.Infrastructure;
+using Signicat.Validator.IdfyPades.Infrastructure.Extensions;
+using Signicat.Validator.IdfyPades.Infrastructure.Middelware;
 using Signicat.Validator.IdfyPades.ValidatorService;
 
 namespace Signicat.Validator.IdfyPades
@@ -37,15 +39,12 @@ namespace Signicat.Validator.IdfyPades
             {
                 mvc.InputFormatters.Clear();
                 mvc.OutputFormatters.Clear();
-                    
-
             });
             services.AddCorsPolicies();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
             services.AddSwagger();
             
-
             services.AddSingleton<PDFValidator>(new PDFValidator());
         }
 
@@ -73,7 +72,7 @@ namespace Signicat.Validator.IdfyPades
                     swaggerDoc.BasePath = "/";
                 });
             });
-
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
             app.UseMvc();

@@ -13,11 +13,11 @@ namespace Signicat.Validator.IdfyPades.Infrastructure
         {
             return new ValidationResponse()
             {
-                Attachments = response.Attachments!=null ? response.Attachments.Select(x=>new Signicat.Validator.IdfyPades.Models.PDFAttachment()
+                Attachments = response.Attachments?.Select(x=>new Signicat.Validator.IdfyPades.Models.PDFAttachment()
                 {
                     Data = x.Data,
                     Name = x.ToString(),
-                }).ToList():null,
+                }).ToList(),
                 Signed = response.Signed,
                 SigningCertificate =response.SigningCertificate==null ? null:  new CertificateDTO()
                 {

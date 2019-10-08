@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using Signicat.Validator.IdfyPades.Infrastructure.Extensions;
 
 
 namespace Signicat.Validator.IdfyPades.Models
@@ -90,5 +92,30 @@ namespace Signicat.Validator.IdfyPades.Models
         /// <exception cref="T:System.Security.Cryptography.CryptographicException">The certificate is unreadable.</exception>
         public int Version { get; }
 
+    }
+
+
+    public class SignicatError
+    {
+        public SignicatError(SignicatErrorCode errorCode)
+        {
+            Code = $"ID-{(int)errorCode}";
+            Message = errorCode.GetDescription();
+        }
+
+        public string Code { get; }
+
+        public string Message { get; }
+    }
+
+    public enum SignicatErrorCode
+    {
+        [Description("The PDF was not valid")]
+        NotValidPDF = 1000,
+
+        
+
+        [Description("Something went wrong. Please contact us for assistance if the problem persists.")]
+        UnexpectedError = 1500,
     }
 }

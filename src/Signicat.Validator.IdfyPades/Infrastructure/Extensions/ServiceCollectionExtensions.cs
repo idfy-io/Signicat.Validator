@@ -8,7 +8,7 @@ using Signicat.Validator.IdfyPades.Infrastructure.Swagger;
 using Swashbuckle.AspNetCore.Examples;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace Signicat.Validator.IdfyPades.Infrastructure
+namespace Signicat.Validator.IdfyPades.Infrastructure.Extensions
 {
     public static class ServiceCollectionExtensions
     {
@@ -122,5 +122,4 @@ namespace Signicat.Validator.IdfyPades.Infrastructure
         }
 
     }
-
 }
