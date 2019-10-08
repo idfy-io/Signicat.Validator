@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\favicon_signicat-3.webp" />
     <None Include="wwwroot\index.html" />
   </ItemGroup>
 
