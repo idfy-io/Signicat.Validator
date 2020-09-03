@@ -17,7 +17,6 @@ namespace Signicat.Validator.IdfyPades.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    
     public class ValidationController : ControllerBase
     {
         private readonly PDFValidator PdfValidator;
@@ -39,6 +38,7 @@ namespace Signicat.Validator.IdfyPades.Controllers
         [ProducesResponseType(typeof(ValidationResponse),200)]
         [Produces("application/json")]
         [Swashbuckle.AspNetCore.Examples.SwaggerResponseExample(200,typeof(ValidationResponseExample))]
+        [RequestSizeLimit(200000000)]
         public async Task<IActionResult> Post(List<IFormFile> files)
         {
             try
